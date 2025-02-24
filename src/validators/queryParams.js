@@ -1,4 +1,4 @@
-import QueryParams from '../improvised_utils/queryParams';
+
 import { z } from 'zod'
 
 const queryParamsSchema = z.object({
@@ -6,10 +6,10 @@ const queryParamsSchema = z.object({
 })
 
 function validateQueryParams(data){
-    let validatedData = new QueryParams();
+    let validatedData
     const validationResult = queryParamsSchema.safeParse(data);
     if (validationResult.success){
-        validatedData.limit = validationResult.data
+        validatedData = validationResult.data
     }
     return validatedData
 }

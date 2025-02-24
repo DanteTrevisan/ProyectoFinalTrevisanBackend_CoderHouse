@@ -5,7 +5,8 @@ export async function readDataFromJsonFileAsyncPromise(
     path
 ){
     try {
-        const data = await fs.promises.readFile(path,"utf9")
+        console.log(path)
+        const data = await fs.promises.readFile(path,'utf8')
         const dataParsed = JSON.parse(data)
         return dataParsed
     } catch (error) {

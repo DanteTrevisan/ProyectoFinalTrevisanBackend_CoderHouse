@@ -11,11 +11,13 @@ app.listen(PORT, () => {
 })
 
 app.use(express.urlencoded({ extended: true}))
-app.use(express.static(`${rootPath}/public`))
-app.use(express.json)
+app.use(express.static(`${rootPath}`))
+app.use(express.json())
 
 app.use(apiRoute + productsRoute, productsRouter)
+
 app.use(apiRoute + cartsRoute, cartsRouter)
+
 
 
 
