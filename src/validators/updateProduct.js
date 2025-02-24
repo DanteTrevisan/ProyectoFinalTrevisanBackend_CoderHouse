@@ -1,4 +1,3 @@
-import UpdateProduct from "../improvised_utils/updateProduct";
 import { z } from 'zod';
 
 const updateProductSchema = z.object({
@@ -13,7 +12,7 @@ const updateProductSchema = z.object({
 });
 
 function validateUpdateProduct(data) {
-    let validatedData = new UpdateProduct()
+    let validatedData
     const validationResult = updateProductSchema.safeParse(data);
     if(validationResult.success) {
         if(!(Object.keys(validationResult.data).length === 0)){

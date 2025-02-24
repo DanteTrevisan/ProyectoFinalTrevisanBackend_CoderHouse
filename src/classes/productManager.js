@@ -1,5 +1,3 @@
-/*import IdProduct from "../improvised_utils/IdProducts";
-import UpdateProduct from "../improvised_utils/UpdateProduct";*/
 import Product from "./product.js"
 import generateId from "../utils/functions.js";
 import { readDataFromJsonFileAsyncPromise,

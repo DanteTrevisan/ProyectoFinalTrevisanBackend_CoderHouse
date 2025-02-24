@@ -68,11 +68,21 @@
   },
   {
     "id": 11,
-    "products": []
+    "products": [
+      {
+        "product": 11,
+        "quantity": 1
+      }
+    ]
   },
   {
     "id": 12,
-    "products": []
+    "products": [
+      {
+        "product": 12,
+        "quantity": 1
+      }
+    ]
   },
   {
     "id": 83,
