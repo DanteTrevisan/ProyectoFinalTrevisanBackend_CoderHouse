@@ -67,6 +67,6 @@ Enlace al repositorio de **GitHub** con el proyecto completo, sin la carpeta de 
 
 ## Ejecucion
 
-- **"start"**: `tsx ./src/app.ts`.
-- **"dev"**: `tsx watch ./src/app.ts`
+- **"start"**: `node ./src/app.js`.
+- **"dev"**: `node --watch ./src/app.js`
 
