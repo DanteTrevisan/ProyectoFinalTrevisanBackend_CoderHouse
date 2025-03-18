@@ -1,8 +1,8 @@
-import Product from "./product.js"
-import generateId from "../utils/functions.js";
+import Product from "../../classes/product.js"
+import generateId from "../../utils/functions.js";
 import { readDataFromJsonFileAsyncPromise,
     writeDataIntoJsonFileAsyncPromises
- } from "../utils/files.js";
+ } from "../../utils/files.js";
 
 export default class ProductManager {
     path

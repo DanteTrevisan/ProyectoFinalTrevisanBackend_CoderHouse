@@ -1,9 +1,9 @@
-import generateId from "../utils/functions.js";
-import Cart from "./carts.js";
-import CartProduct from "./cartProduct.js";
+import generateId from "../../utils/functions.js";
+import Cart from "../../classes/cart.js";
+import CartProduct from "../../classes/cartProduct.js";
 import { readDataFromJsonFileAsyncPromise,
          writeDataIntoJsonFileAsyncPromises
-} from "../utils/files.js";
+} from "../../utils/files.js";
 
 class CartManager {
     path;
