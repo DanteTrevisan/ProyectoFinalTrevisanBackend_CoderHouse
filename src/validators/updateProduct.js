@@ -9,17 +9,15 @@ const updateProductSchema = z.object({
     category: z.string().optional,
     status: z.boolean().optional,
     title: z.string().optional,
-});
+}).strict()
 
 function validateUpdateProduct(data) {
-    let validatedData
     const validationResult = updateProductSchema.safeParse(data);
-    if(validationResult.success) {
-        if(!(Object.keys(validationResult.data).length === 0)){
-            validatedData = validationResult.data
-        }
+    if (validationResult.success) {
+        return validationResult.data;
+    } else {
+        throw new Error("objeto de actualizacion invalido")
     }
-    return validatedData
 }
 
 export default validateUpdateProduct

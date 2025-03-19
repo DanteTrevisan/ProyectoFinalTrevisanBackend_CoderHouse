@@ -1,69 +1,111 @@
 import {Router} from 'express';
-import CartManager from '../classes/cartManager.js';
-import ProductManager from '../classes/productManager.js';
-import validateId from '../validators/ids.js';
-import { successStatus, failureStatus } from "../utils/statuses.js";
 import { productRoute } from '../utils/routes.js';
-import { productsPath, cartsPath } from '../utils/paths.js';
+import { successStatus, failureStatus } from "../utils/statuses.js";
+import { CartManagerDB } from '../dao/services/CartManagerDB.js';
+import validateProductCart from '../validators/productCart.js';
+import validateNumber from '../validators/number.js';
 
 
 const cartsRouter = Router()
 
 /**GET ENDPOINT */
 cartsRouter.get("/:cid", async(req, res) => {
-    const cartManager = new CartManager(cartsPath);
-    const cid = validateId(req.params.cid);
-    if (cid) {
-        const idCart = await cartManager.getCartById(cid);
-        if (idCart) {
-            res.json(idCart.products);
-        } else {
-            res.status(404).json(failureStatus(`El carro con id ${id} no existe`))
-        }
-    } else {
-        res.status(404).json(failureStatus(`Cart ID invalido`))
+    try {
+        const cartManagerDB = new CartManagerDB()
+        const cid = req.params.cid;
+        const cart = await cartManagerDB.getCartById(cid);
+        res.json(cart)
+    } catch (error) {
+        res.json(failureStatus(error.message))
     }
 });
 
-/**POST */
+cartsRouter.get("/", async (req, res) => {
+    try {
+        const cartManagerDB = new CartManagerDB();
+        const cart = await cartManagerDB.getCarts();
+        res.json(cart)
+    } catch (error) {
+        res.json(failureStatus(error.message))
+    }
+});
+
+/**POST ENDPOINTS */
 cartsRouter.post("/", async(req, res) => {
-    const cartManager = new CartManager(cartsPath);
-    await cartManager.createCart();
-    res.json(successStatus)
-})
+    try {
+        const cartManagerDB = new CartManagerDB();
+        await cartManagerDB.createCart();
+        res.json(successStatus);
+    } catch (error) {
+        res.json(failureStatus(error.message));
+    }
+});
 
 cartsRouter.post(
     "/:cid" + productRoute + "/:pid",
     async (req, res) => {
-        const cartManager = new CartManager(cartsPath)
-        const productManager = new ProductManager(productsPath)
-        const cid = validateId(req.params.pid)
-        if (cid) {
-            const pid = validateId(req.params.pid)
-            if (pid) {
-                const IdProduct = await productManager.getProductById(pid)
-                if (!IdProduct) {
-                    res
-                        .status(404)
-                        .json(failureStatus(`El producto con id ${pid} no existe`))
-                } else {
-                  await cartManager.addProductToCart(cid,pid,(error) => {
-                    if (error) {
-                        res.status(404).json(failureStatus(error.message))
-                    } else {
-                        res.json (successStatus)
-                    }
-                  })
-                }
-            } else {
-                res.status(404).json(failureStatus("PRoducto ID invalido"))
-            }
-        } else {
-            res.status(404).json(failureStatus("Cart ID invalido"))
+        try {
+            const cartManagerDB = new CartManagerDB();
+            const cid = req.params.cid;
+            const pid = req.params.pid
+            await cartManagerDB.addProductToCart(cid,pid);
+            res.json(successStatus)
+        } catch (error) {
+            res.json(failureStatus(error.message));
         }
 
     }
-)
+);
+
+/** PUT ENDPOINTS */
+cartsRouter.put("/:cid", async (req, res) => {
+    try {
+        const cartManagerDB = new CartManagerDB();
+        const cid = req.params.cid;
+        const updateProducts = validateProductCart(req.body);
+        await cartManagerDB.updateCart(cid, updateProducts);
+        res.json(successStatus)
+    } catch (error) {
+        res.json(failureStatus(error.message))
+    }
+});
+
+cartsRouter.put("/:cid" + productRoute + "/:pid", async (req, res) => {
+    try {
+        const cartManagerDB = new CartManagerDB();
+        const cid = req.params.cid;
+        const pid = req.params.pid;
+        const quantity = validateNumber(req.body)
+        await cartManagerDB.updateProductQuantity(cid,pid,quantity);
+        res.json(successStatus)
+    } catch (error) {
+        res.json(failureStatus(error.message))
+    }
+})
+
+/** DELETE ENDPOINTS */
+cartsRouter.delete("/:cid" + productRoute + "/:pid", async (req, res) => {
+    try {
+        const cartManagerDB = new CartManagerDB();
+        const cid = req.params.cid;
+        const pid = req.params.pid;
+        await cartManagerDB.removeProductFromCart(cid,pid);
+        res.json(successStatus)
+    } catch (error) {
+        res.json(failureStatus(error.message))
+    }
+})
+
+cartsRouter.delete("/:cid", async(req,res) => {
+    try {
+        const cartManagerDB = new CartManagerDB();
+        const cid = req.params.cid;
+        await cartManagerDB.clearCart(cid)
+        res.json(successStatus)
+    } catch (error) {
+        res.json(failureStatus(error.message))
+    }
+})
 
 export default cartsRouter;
 
