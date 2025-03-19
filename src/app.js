@@ -22,7 +22,7 @@ const io = new Server(httpServer)
 
 /** MIDDLEWARES */
 app.use(express.urlencoded({ extended: true}))
-app.use(express.static(`${rootPath}`))
+app.use(express.static(`${rootPath}public`))
 app.use(express.json())
 app.set("views", rootPath + "src\\views")
 app.engine("handlebars", handlebars.engine());
