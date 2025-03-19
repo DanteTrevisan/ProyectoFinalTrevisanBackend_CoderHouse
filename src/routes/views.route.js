@@ -67,7 +67,7 @@ viewsRouter.get("/chat", (req, res) => {
     }
 });
 
-viewsRouter.get(productRoute, async(req, res) => {
+viewsRouter.get(productsRoute, async(req, res) => {
     try {
         const productManagerDB = new ProductManagerDB();
         let limitParsed = 2;
