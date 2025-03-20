@@ -1,59 +1,26 @@
-# PREENTREGA 1PROGRAMACION BACKEND
+# PREENTREGA 1 PROGRAMACION BACKEND: WEBSOCKETS
 
-Primera Preentrega del proyecto final del curso de Programacion Backend de CoderHouse
+Segunda Preentrega del proyecto final del curso de Programacion Backend de CoderHouse:
+
+- Además, crear una vista “realTimeProducts.handlebars”, la cual vivirá en el endpoint **“/realtimeproducts”** en nuestro views router, ésta contendrá la misma lista de productos, sin embargo, ésta trabajará con **websockets**.
+
+    - Al trabajar con websockets, cada vez que creemos un producto nuevo, o bien cada vez que eliminemos un producto, se debe actualizar automáticamente en dicha vista la lista.
 
 ## Consigna
 
-Desarrollar un servidor que contenga los **endpoints** y servicios necesarios para gestionar los productos y carritos de compra para tu API.
+- Configurar nuestro proyecto para que trabaje con Handlebars y websocket.
 
-El servidor debe estar basado en Node.js y Express, y debe escuchar en el puerto 8080. Se deben disponer dos grupos de rutas: **/products** y **/carts**. Estos endpoints estarán implementados con el router de Express, con las siguientes especificaciones:
+Aspectos a incluir
 
-- Rutas para Manejo de **Productos** (/api/products/)
-    **GET /:**
-    - Debe listar todos los productos de la base de datos.
+- Configurar el servidor para integrar el motor de plantillas Handlebars e instalar un servidor de socket.io al mismo.
 
-    **GET /:pid:**
-    - Debe traer solo el producto con el id proporcionado.
+- Crear una vista “home.handlebars” la cual contenga una lista de todos los productos agregados hasta el momento
 
-    **POST /:**
-    - Debe agregar un nuevo producto con los siguientes campos: id: Number/String (No se manda desde el body, se autogenera para asegurar que nunca se repitan los ids).
+## Nota aparte
 
-    - **title**: _String_.
-    - **description**: _String_.
-    - **code**: _String_.
-    - **price**: _Number_.
-    - **status**: _Boolean_.
-    - **stock**: _Number_.
-    - **category**: _String_.
-    - **thumbnails**: **Array** de _Strings_. (rutas donde están almacenadas las imágenes del producto).
-
-    - **Status** es **true** por defecto.
-    - Todos los campos son obligatorios, a excepcion de **thumbnails**
-
-    **PUT /:pid:**
-    - Debe actualizar un producto por los campos enviados desde el body. No se debe actualizar ni eliminar el idal momento de hacer la actualización.
-
-    **DELETE /:pid:**
-    - Debe eliminar el producto con el pid indicado.
-
-- Rutas para Manejo de **Carritos** (/api/carts/)
-    **POST /**:
-    - Debe crear un nuevo carrito con la siguiente estructura: **id**: Number/String (Autogenerado para asegurar que nunca se dupliquen los ids).
-
-    - **products**: Array que contendrá objetos que representen cada producto.
-
-    **GET /:cid**:
-    - Debe listar los productos que pertenecen al carrito con el cid proporcionado.
-
-**POST /:cid/product/:pid**:
-    - Debe agregar el producto al arreglo products del carrito seleccionado, utilizando el siguiente formato:
-        - product: Solo debe contener el ID del producto.
-        - quantity: Debe contener el número de ejemplares de dicho producto (se agregará de uno en uno).
-    Si un producto ya existente intenta agregarse, se debe incrementar el campo quantity de dicho producto.
-
-## Entrega
-
-Enlace al repositorio de **GitHub** con el proyecto completo, sin la carpeta de **node_modules**
+- Tambien se han agregado caracteristicas en lo referente a persistencias de datos, mas precisamente la utilizacion de **MOONGODB** como sistema de persistencia principal.
+- Tambien se han definido ENDPOINTS para trabajar con productos y carritos (aclaracion: falta trabajos sobre esos).
+- Se intento optimizacion de consultas con filtros, paginacion y ordenamiento ('asc', 'desc').
 
 ## Dependencies
 
@@ -64,6 +31,37 @@ Enlace al repositorio de **GitHub** con el proyecto completo, sin la carpeta de 
 - `npm i zod`
 
 > **Zod** es una biblioteca de validación de datos para **Typescript** y **Javascript**. Proporciona una fomar simple y robusta de definir esquemas de datos y validarlos en tiempo de ejecución. Permite definir fáacilmente la estructura y restricciones de datos, y luego utilizar esos esquemas para validar entradas de usuario, datos de **API**, y mas.
+
+- `npm i express-handlebars`
+
+> **Handlebars** es un motor de plantillas para **JavaScript** que permite generar **HTML** de forma dinámica al combinar datos con plantillas **HTML** predefinidas. Es especialmente útil en aplicaciones web para renderizar vistas del lado del servidor con datos dinámicos.
+
+- `npm i socket.io`
+
+> **Socket.io** es una biblioteca de **JavaScript** que permite la comunicación bidireccional en tiempo real entre clientes web y servidores. Proporciona una abstracción sobre **WebSockets** y otros mecanismos de transporte, lo que facilita el desarrollo de aplicaciones web en tiempo real.
+
+- `npm i mongodb`
+
+> Controlador oficial de **MongoDB** para **Node.js**, lo que permite a las aplicaciones **Node.js** interactuar con una base de datos **MongoDB**.
+
+- `npm i dotenv`
+
+> **Dotenv** es una biblioteca de **Node.js** que permite cargar variables de entorno desde un archivo **.env** en tu aplicación.
+
+- `npm i mongoose`
+
+> **Mongoose** es una biblioteca de modelado de objetos de **MongoDB** para **Node.js**. Proporciona una solución basada en esquemas para modelar datos de aplicaciones utilizando **MongoDB**, lo que facilita la interacción con la base de datos **MongoDB** desde una aplicación **Node.js**.
+
+
+- `npm i mongoose-paginate-v2`
+
+> **mongoose-paginate-v2** proporciona funcionalidades de paginación para consultas en **MongoDB** utilizando **Mongoose**.
+
+## devDependencies
+
+- `npm i tailwindcss -D`
+
+- `npm i @tailwindcss/forms -D` (Conjunto de estilos predefinidos diseñados específicamente para mejorar el aspecto y la funcionalidad de los formularios **HTML**)
 
 ## Ejecucion
 
