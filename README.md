@@ -1,4 +1,4 @@
-# PREENTREGA 1 PROGRAMACION BACKEND: WEBSOCKETS
+# PREENTREGA 2 PROGRAMACION BACKEND: WEBSOCKETS
 
 Segunda Preentrega del proyecto final del curso de Programacion Backend de CoderHouse:
 
