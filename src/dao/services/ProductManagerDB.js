@@ -28,7 +28,7 @@ class ProductManagerDB {
     async addProduct(productObj) {
         try {
             const existingProduct = await productsModel.findOne({
-                code: productObj.code
+                code: productObj.code,
             });
             if (existingProduct) {
                 throw new Error(

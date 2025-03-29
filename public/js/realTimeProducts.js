@@ -28,7 +28,7 @@ document.getElementById("newProductForm").addEventListener("submit", (event) => 
         price: formData.get("price"),
         stock: formData.get("stock"),
         category: formData.get("category"),
-        status: formData.get("status"),
+        status: formData.get("status")
     };
     socket.emit("newProduct", newProduct)
 })

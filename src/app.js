@@ -63,9 +63,3 @@ io.on("connection", async(socket) => {
 
 // MONGODB
 connectDB();
-
-console.log("hola")
-
-
-
-

@@ -35,7 +35,7 @@ viewsRouter.get("/", async(req,res) => {
         res.render("failure", {
             title: "Products",
             style: "app.css",
-            failureMessage: error.message
+            failureMessage: error.message,
         });
     }
 });
@@ -50,8 +50,8 @@ viewsRouter.get("/realtimeproducts", (req, res) => {
         res.render("failure", {
             title: "Real Time Products",
             style: "app.css",
-            failureMessage: error.message
-        })
+            failureMessage: error.message,
+        });
     }
 });
 
