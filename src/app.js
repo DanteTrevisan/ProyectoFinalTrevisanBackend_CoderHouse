@@ -1,12 +1,16 @@
 import express from 'express';
-import  productsRouter  from './routes/products.route.js';
-import  cartsRouter from './routes/carts.route.js';
-import { PORT } from './utils/ports.js';
-import { rootPath } from './utils/paths.js';
-import { apiRoute, productsRoute, cartsRoute } from './utils/routes.js';
 import handlebars from "express-handlebars";
-import viewsRouter from "./routes/views.route.js";
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
+import Handlebars from "handlebars";
 import { Server } from "socket.io";
+import socketMessages from "./websockets/socketMessages.js"
+
+import { rootPath } from './utils/paths.js';
+
+
+
+import { apiRoute, productsRoute, cartsRoute } from './utils/routes.js';
+import viewsRouter from "./routes/views.route.js";
 import connectDB from "./utils/db.js";
 import ProductManagerDB from "./dao/services/ProductManagerDB.js";
 import messagesModel from "./dao/models/messages.model.js";

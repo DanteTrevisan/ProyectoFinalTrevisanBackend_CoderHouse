@@ -1,10 +1,6 @@
-/**
- * @param {number[]} ids
- * @returns {number}
- */
-
-export default function generateId(ids){
-    let maxId = 0;
-    if(ids.length !== 0) maxId = Math.max(...ids)
-    return maxId
+export function generateCode(prefix){
+    return(
+        `${prefix.toUpperCase()}-` +
+        Math.random().toString(36).slice(2,9).toUpperCase()
+    );
 }
