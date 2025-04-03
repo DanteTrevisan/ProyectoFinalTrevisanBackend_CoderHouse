@@ -1,7 +1,9 @@
 import { z } from "zod";
+import ErrorHandler from "../utils/ErrorHandler.js";
+import errorTypes from "../utils/errorTypes.js";
 
 const numberSchema = z.object({
-    quantity: z.number(),
+    quantity: z.number().min(0, { message: "Quantity must be a non-negative number" }),
 });
 
 function validateNumber(data){
@@ -9,7 +11,12 @@ function validateNumber(data){
     if (validationResult.success) {
         return validationResult.data.quantity;
     } else {
-        throw new Error("Numero Invalido")
+        throw ErrorHandler.customError(
+            "Number validation error",
+            validationResult.error.errors[0]?.message || "Invalid number",
+            errorTypes.ERROR_INVALID_ARGUMENTS,
+            `number was expected. Received: ${typeof data.quantity}`
+        )
     }
 }
 

@@ -114,7 +114,6 @@ class UserMongodbDAO {
         }
     }
 
-    // @@@@
     async deleteUserById(id) {
         try {
             await usersModel.findByIdAndDelete(id);
