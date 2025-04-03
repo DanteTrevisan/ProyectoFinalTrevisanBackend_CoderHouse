@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@faker-js/faker": "^9.6.0",
     "@handlebars/allow-prototype-access": "^1.0.5",
     "autoprefixer": "^10.4.21",
     "commander": "^13.1.0",

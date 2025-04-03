@@ -7,6 +7,8 @@ import socketMessages from "./websockets/socketMessages.js"
 
 import { rootPath } from './utils/paths.js';
 
+import middlewares from './middlewares/middlewares.js';
+
 
 
 import { apiRoute, productsRoute, cartsRoute } from './utils/routes.js';
