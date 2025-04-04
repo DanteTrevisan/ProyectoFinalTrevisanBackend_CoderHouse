@@ -18,13 +18,13 @@ switch (config.dao) {
             "./mongodb/cart.mongodb.dao.js"
         );
         const { default: productsMongodb } = await import(
-            "./mongodb/product.mongodb.dao"
+            "./mongodb/product.mongodb.dao.js"
         );
         const { default: usersMongodb } = await import(
-            "./mongodb/user.mongodb.dao"
+            "./mongodb/user.mongodb.dao.js"
         );
         const { default: ticketsMongodb } = await import(
-            "./mongodb/ticket.mongodb.dao"
+            "./mongodb/ticket.mongodb.dao.js"
         );
         carts = new cartsMongodb();
         products = new productsMongodb();

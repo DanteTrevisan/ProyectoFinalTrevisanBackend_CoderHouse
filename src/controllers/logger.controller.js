@@ -1,4 +1,4 @@
-import { failureStatus } from "../utils/statuses";
+import { failureStatus } from "../utils/statuses.js";
 
 class LoggerController {
   constructor() {}

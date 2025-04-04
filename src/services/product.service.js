@@ -1,4 +1,4 @@
-import ProductMongodbDAO from "../dao/mongodb/product.mongodb.dao";
+import ProductMongodbDAO from "../dao/mongodb/product.mongodb.dao.js";
 
 export default class ProductService {
   dao;

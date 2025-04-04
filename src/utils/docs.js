@@ -1,4 +1,4 @@
-import { rootPath } from "./paths";
+import { rootPath } from "./paths.js";
 
 const swaggerOptions = {
     definition: {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import "dotenv/config"
+import config from "./env.config.js"
 
 const dbUsername = config.dbUsername;
 const dbPassword = config.dbPassword;

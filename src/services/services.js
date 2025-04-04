@@ -10,4 +10,4 @@ export const cartService = new CartService(carts);
 export const productService = new ProductService(products);
 export const userService = new UserService(users);
 export const ticketService = new TicketService(tickets);
-export const MockingService = new MockingService();
+export const mockingService = new MockingService();

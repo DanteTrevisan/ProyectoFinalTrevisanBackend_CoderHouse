@@ -36,7 +36,7 @@ middlewares.use(
     })
 );
 
-initializePassport();
+
 middlewares.use(passport.initialize());
 middlewares.use(passport.session());
 
@@ -46,11 +46,5 @@ middlewares.use(addLogger);
 
 middlewares.use(errorHandler);
 
-const swaggerSpecs = swaggerJSDoc(swaggerOptions);
-middlewares.use(
-    "/api-docs",
-    swaggerUiExpress.server,
-    swaggerUiExpress.setup(swaggerSpecs)
-);
 
 export default middlewares

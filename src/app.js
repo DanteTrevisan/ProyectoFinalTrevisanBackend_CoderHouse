@@ -8,15 +8,10 @@ import socketMessages from "./websockets/socketMessages.js"
 import { rootPath } from './utils/paths.js';
 
 import middlewares from './middlewares/middlewares.js';
+import routes from './routes/routes.js';
+import  config  from "./config/env.config.js";
 
-
-
-
-import { apiRoute, productsRoute, cartsRoute } from './utils/routes.js';
-import viewsRouter from "./routes/views.route.js";
-import connectDB from "./utils/db.js";
-import ProductManagerDB from "./dao/services/ProductManagerDB.js";
-import messagesModel from "./dao/models/messages.model.js";
+const PORT = config.port;
 
 const app = express();
 
@@ -27,46 +22,22 @@ const httpServer = app.listen(PORT, () => {
 
 const io = new Server(httpServer)
 
-/** MIDDLEWARES */
-app.use(express.urlencoded({ extended: true}))
-app.use(express.static(`${rootPath}public`))
-app.use(express.json())
 app.set("views", rootPath + "src\\views")
-app.engine("handlebars", handlebars.engine());
+app.engine(
+    "handlebars",
+    handlebars.engine({
+        handlebars: allowInsecurePrototypeAccess(Handlebars),
+    })
+);
+
 app.set("view engine", "handlebars")
 
-/** ROUTES */
-app.use(apiRoute + productsRoute, productsRouter)
-app.use(apiRoute + cartsRoute, cartsRouter)
-app.use(viewsRouter)
+app.use(middlewares) /** MIDDLEWARES */
+app.use(routes) /** ROUTER */
+
 
 //WEBSOCKETS
-const messages = [];
-
-io.on("connection", async(socket) => {
-    console.log("Cliente conectado");
-    const limit = 1000;
-    const page = 1;
-    const productManagerDB = new ProductManagerDB();
-    let products = await productManagerDB.getProducts(limit, page, null, null);
-
-    socket.emit("products", products.payload);
-
-    socket.on("newProduct", async (newProduct) => {
-        console.log("Nuevo Producto");
-        console.log(newProduct);
-        await productManagerDB.addProduct(newProduct);
-        products = await productManagerDB.getProducts(limit, page, null, null);
-        socket.emit("products", products.payload)
-    });
-
-    socket.on("message", async(data) => {
-        console.log(data);
-        messages.push(data);
-        await messagesModel.create(data);
-        io.emit("messagesLogs", messages)
-    });
-});
+socketMessages(io)
 
 // MONGODB
-connectDB();
+//connectDB();
